@@ -20,8 +20,8 @@ class Plugin extends BasePlugin
 	public function add_menu()
 	{
 		add_options_page(
-			'Learnosity API Plugin Settings',
-			'Learnosity API Plugin',
+			'Learnosity API Settings',
+			'Learnosity API',
 			'manage_options',
 			'lrn_api',
 			array(&$this, 'render_plugin_settings_page')
@@ -56,7 +56,7 @@ class Plugin extends BasePlugin
 		}
 
 		// Render the settings template
-		include(__DIR__ . '/../../../templates/settings.php');
+		include(__DIR__ . '../../../templates/settings.php');
 
 	}
 

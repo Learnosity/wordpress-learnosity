@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Learnosity API Plugin
+ * Plugin Name: Learnosity API
  * Plugin URI: http://learnosity.com
  * Description: Simple Learnosity API integration in WordPress.
  * Version: 1.0.0

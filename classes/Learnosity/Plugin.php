@@ -30,9 +30,10 @@ class Plugin extends BasePlugin
 
 	public function enqueue_scripts()
 	{
+		$lrn_items_api_version = get_option('lrn_items_api_version');
 		wp_enqueue_script(
 			'learnosity',
-			'//items.learnosity.com/',
+			'https://items.learnosity.com/?'.$lrn_items_api_version,
 			array(),
 			null,
 			false
@@ -43,7 +44,7 @@ class Plugin extends BasePlugin
 	{
 		register_setting('lrn_api_group', 'lrn_consumer_key');
 		register_setting('lrn_api_group', 'lrn_consumer_secret');
-		register_setting('lrn_api_group', 'lrn_course_id');
+		register_setting('lrn_api_group', 'lrn_items_api_version');
 	}
 
 	/**

@@ -24,7 +24,6 @@ class ItemsEmbed
 			'activityid' => 'activity_' . \UUID::generateUuid(),
 			'autorender' => true,
 			'apiversion' => 'v2',
-			'courseid' => $this->get_default_courseid(),
 			'name' => 'My Activity',
 			'rendersubmit' => false,
 			'renderingtype' => 'inline',
@@ -60,7 +59,6 @@ class ItemsEmbed
 			'state' => $this->config['state'],
 			'activity_id' => $this->config['activityid'],
 			'session_id' => $this->config['sessionid'],
-			'course_id' => $this->config['courseid'],
 			'items' => $this->items_attr_to_array($this->config['items']),
 			'type' => $this->config['type'],
 			'config' => array(
@@ -84,12 +82,12 @@ class ItemsEmbed
 		return $signed_request;
 	}
 
-	private function get_default_courseid()
+	private function get_items_api_version()
 	{
-		if (get_option('lrn_course_id')) {
-			return get_option('lrn_course_id');
+		if (get_option('lrn_items_api_version')) {
+			return get_option('lrn_items_api_version');
 		} else {
-			return 'course_' . \UUID::generateUuid();
+			return '';
 		}
 	}
 

@@ -23,7 +23,6 @@ class ItemsEmbed
 		$defaults = array(
 			'activityid' => 'activity_' . \UUID::generateUuid(),
 			'autorender' => true,
-			'apiversion' => 'v2',
 			'name' => 'My Activity',
 			'rendersubmit' => false,
 			'renderingtype' => 'inline',

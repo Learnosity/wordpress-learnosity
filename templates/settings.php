@@ -14,8 +14,8 @@
 				<td><input type="text" name="lrn_consumer_secret" id="lrn_consumer_secret" value="<?php echo get_option('lrn_consumer_secret'); ?>" /></td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><label for="lrn_items_api_version">Items API Version</label></th>
-				<td><input type="text" name="lrn_items_api_version" id="lrn_items_api_version" value="<?php echo get_option('lrn_items_api_version'); ?>" />eg: v1, v1.65.   If empty then latest version will be used.</td>
+				<th scope="row"><label for="lrn_items_api_url">Items API URL</label></th>
+				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" />Use this to select region and version to use.  Default: https://items.learnosity.com/?v1</td>
 			</tr>
 		</table>
 

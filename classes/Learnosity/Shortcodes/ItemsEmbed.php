@@ -21,14 +21,14 @@ class ItemsEmbed
 			'timestamp' => gmdate('Ymd-Hi')
 		);
 		$defaults = array(
-			'activityid' => 'activity_' . \UUID::generateUuid(),
+			'activityid' => \UUID::generateUuid(),
 			'autorender' => true,
 			'name' => 'My Activity',
 			'rendersubmit' => false,
 			'renderingtype' => 'inline',
 			'sessionid' => \UUID::generateUuid(),
 			'state' => 'initial',
-			'studentid' => 'student_' . \UUID::generateUuid(),
+			'studentid' => 'student_' . get_current_user_id(),
 			'type' => 'local_practice'
 		);
 		$options = $this->parse_options($options);
@@ -50,7 +50,6 @@ class ItemsEmbed
 
 	private function generate_signed_request()
 	{
-		$version = get_option('lrn_api_version');
 		$request = array(
 			'user_id' => $this->config['studentid'],
 			'rendering_type' => $this->config['renderingtype'],
@@ -78,15 +77,6 @@ class ItemsEmbed
 			$signed_request = json_encode($signed_request);
 		}
 		return $signed_request;
-	}
-
-	private function get_items_api_version()
-	{
-		if (get_option('lrn_items_api_version')) {
-			return get_option('lrn_items_api_version');
-		} else {
-			return '';
-		}
 	}
 
 	private function items_attr_to_array($items_string)

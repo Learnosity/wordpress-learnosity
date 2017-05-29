@@ -9,7 +9,7 @@ TODO:
 - ~~Remove Course_id setting in admin~~ - Done
 - ~~Remove support for Questions API version~~ - Done
 - Only load primer when there are shortcodes on the page
-- Add support for authenticated users
+- ~~ Add support for authenticated users ~~ - Done
 - Add support for Activity Template Id works
 - Add support for submit practice
 - Support for session id

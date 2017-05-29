@@ -62,7 +62,6 @@ class ItemsEmbed
 			'type' => $this->config['type'],
 			'config' => array(
 				'renderSubmitButton' => $this->config['rendersubmit'],
-				'questionsApiVersion' => $this->config['apiversion']
 			)
 		);
 		$request_helper = new \RequestHelper(

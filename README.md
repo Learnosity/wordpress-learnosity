@@ -1,13 +1,14 @@
 # Learnosity plugin for Wordpress
 
-=== Work in progress === 
+## Work in progress
 
 This Plugin is currently undergoing some rework and cleanup to update it to allow the latest functionality and become fully supported.
 
 TODO:
-- Add support for Items API version (Config level)
-- Remove support for Questions API version
-- Remove Course_id setting in admin
+- ~~Add support for Items API version (Config level)~~  - Done
+- ~~Remove Course_id setting in admin~~ - Done
+- ~~Remove support for Questions API version~~ - Done
+- Only load primer when there are shortcodes on the page
 - Add support for authenticated users
 - Add support for Activity Template Id works
 - Add support for submit practice
@@ -17,14 +18,14 @@ Future:
 - Support for reporting
 
 
-=== Learnosity API ===
+## Learnosity API
 Tags: learnosity, api, assessment, education
 Requires at least: 3.5.1
 License: Copyright 2014, Learnosity
 
 The Learnosity API plugin allows you to embed Learnosity items on your site using WordPress shortcodes.
 
-== Installation ==
+### Installation
 After activating the plugin, visit Settings > Learnosity API Plugin and add your Learnosity consumer key and consumer secret (course ID is optional). Once you\'ve saved these settings, you\'ll be able to start embedding Learnosity items on your site by using shortcodes.
 
 You can embed a set of items fairly simply by adding the following shortcode, with your own items:
@@ -38,7 +39,6 @@ You can also pass additional attributes to your [lrn-items] shortcode, like so:
 The \'items\' attribute is the only required attribute, the others are defaulted to the following:
 - activityid: (randomly generated)
 - autorender: true
-- apiversion: v2
 - courseid: (randomly generated if you haven\'t set it on the settings page)
 - name: My Activity
 - rendersubmit: false

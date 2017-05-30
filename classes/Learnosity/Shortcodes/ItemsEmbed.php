@@ -29,7 +29,7 @@ class ItemsEmbed
 			'sessionid' => \UUID::generateUuid(),
 			'state' => 'initial',
 			'studentid' => 'student_' . get_current_user_id(),
-			'type' => 'local_practice'
+			'type' => get_option('lrn_default_type','submit_practice')
 		);
 		$options = $this->parse_options($options);
 		$this->config = array_merge($defaults, $options);

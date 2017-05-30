@@ -45,6 +45,7 @@ class Plugin extends BasePlugin
 		register_setting('lrn_api_group', 'lrn_consumer_key');
 		register_setting('lrn_api_group', 'lrn_consumer_secret');
 		register_setting('lrn_api_group', 'lrn_items_api_url');
+		register_setting('lrn_api_group', 'lrn_default_type');
 	}
 
 	/**

@@ -10,8 +10,9 @@ TODO:
 - ~~Remove support for Questions API version~~ - Done
 - Only load primer when there are shortcodes on the page
 - ~~ Add support for authenticated users ~~ - Done
-- Add support for Activity Template Id works
-- Add support for submit practice
+- ~~ Add support for submit practice ~~ - N/a - already worked
+- Add support for changing default from local_practice to submit_practice - and make that default
+- Add support for Activity Template Id
 - Support for session id
 
 Future:

@@ -12,14 +12,14 @@ TODO:
 - [x] Add support for submit practice - N/a - already worked
 - [x] Add support for changing default from local_practice to submit_practice - and make that default
 - [x] Add support for Activity Template Id
-- Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid.
-- Only load primer when there are shortcodes on the page
-- Support for session id
-- Test multiple activities on the one page
-- Are multiple submit buttons supported?
+- [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid.
+- [ ] Only load primer when there are shortcodes on the page
+- [ ] Support for session id
+- [ ] Test multiple activities on the one page
+- [ ] Are multiple submit buttons supported?
 
 Future:
-- Support for reporting
+- [ ]Support for reporting
 
 
 ## Learnosity API

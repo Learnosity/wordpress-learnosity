@@ -19,7 +19,7 @@ TODO:
 - [ ] Are multiple submit buttons supported?
 
 Future:
-- [ ]Support for reporting
+- [ ] Support for reporting
 
 
 ## Learnosity API
@@ -32,6 +32,7 @@ The Learnosity API plugin allows you to embed Learnosity items on your site usin
 ### Installation
 After activating the plugin, visit Settings > Learnosity API Plugin and add your Learnosity consumer key and consumer secret (course ID is optional). Once you\'ve saved these settings, you\'ll be able to start embedding Learnosity items on your site by using shortcodes.
 
+### Usage
 
 #### Basic Inline Example
 You can embed a set of items fairly simply by adding the following shortcode, with your own items:
@@ -80,10 +81,13 @@ Setting `autorender="false"` will allow you to place the item elements wherever 
 
 You can also manually embed a submit button this way:
 
-```[lrn-items items="Demo6" autorender="false" rendersubmit="true"]
+```
+[lrn-items items="Demo6" autorender="false" rendersubmit="true"]
 [lrn-item ref="Demo6"]
-[lrn-submit]```
+[lrn-submit]
+```
 
+The End
 
 
 

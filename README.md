@@ -37,11 +37,15 @@ After activating the plugin, visit Settings > Learnosity API Plugin and add your
 #### Basic Inline Example
 You can embed a set of items fairly simply by adding the following shortcode, with your own items:
 
-```[lrn-items items="Demo5, Demo6, Demo7"]```
+```
+[lrn-items items="Demo5, Demo6, Demo7"]
+```
 
 You can also pass additional attributes to your [lrn-items] shortcode, like so:
 
-```[lrn-items items="Demo5, Demo6, Demo7" name="My Awesome Activity" sessionid="1234" activityid="activity_123"]```
+```
+[lrn-items items="Demo5, Demo6, Demo7" name="My Awesome Activity" sessionid="1234" activityid="activity_123"]
+```
 
 The 'items' attribute is the only required attribute, the others are defaulted to the following:
 - activityid: (randomly generated)
@@ -56,7 +60,9 @@ The 'items' attribute is the only required attribute, the others are defaulted t
 #### Basic Assessment Example
 Using the `lrn-assess` shortcode lets you include an Assessment style activity.
 
-```[lrn-assess activitytemplateid="DemoActivityWordpress"]```
+```
+[lrn-assess activitytemplateid="DemoActivityWordpress"]
+```
 
 Note you can use either the activitytemplateid to load from the Author site/Item Bank, or you can specify individual items.
 
@@ -65,19 +71,21 @@ Note you can use either the activitytemplateid to load from the Author site/Item
 
 Setting `autorender="false"` will allow you to place the item elements wherever you please, e.g:
 
-```[lrn-items items="Demo5, Demo6, Demo7" autorender="false"]```
-
+```
+[lrn-items items="Demo5, Demo6, Demo7" autorender="false"]
+```
 < Some content separating the embed >
-
-```[lrn-item ref="Demo5"]```
-
+```
+[lrn-item ref="Demo5"]
+```
 < Another separator >
-
-```[lrn-item ref="Demo6"]```
-
+```
+[lrn-item ref="Demo6"]
+```
 < More separation >
-
-```[lrn-item ref="Demo7"]```
+```
+[lrn-item ref="Demo7"]
+```
 
 You can also manually embed a submit button this way:
 

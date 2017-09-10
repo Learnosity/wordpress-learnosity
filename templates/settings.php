@@ -15,7 +15,11 @@
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="lrn_items_api_url">Items API URL</label></th>
-				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://items.learnosity.com/?v1</i></p></td>
+				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://items-va.learnosity.com/?v1</i></p></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="lrn_reports_api_url">Reports API URL</label></th>
+				<td><input type="text" name="lrn_reports_api_url" id="lrn_reports_api_url" value="<?php echo get_option('lrn_reports_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://reports-va.learnosity.com/?v0</i></p></td>
 			</tr>
 			<tr valign="top">
 			<?php echo get_option('lrn_default_type') ?>

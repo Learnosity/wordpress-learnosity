@@ -95,6 +95,23 @@ You can also manually embed a submit button this way:
 [lrn-submit]
 ```
 
+
+### Reports API Usage
+A subset of reports are currently available for us in the wordpress plugin.
+
+
+### Sessions List report
+```
+[lrn-report type="sessions-list"]
+```
+
+This shows the list of session for the current user with the default of the last 5.
+
+```
+[lrn-report type="sessions-list" limit="10"]
+```
+
+
 The End
 
 

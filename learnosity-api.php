@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: Learnosity API
- * Plugin URI: http://learnosity.com
+ * Plugin URI: https://docs.learnosity.com/developers/developerguide/integration
  * Description: Simple Learnosity API integration in WordPress.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Learnosity
- * Author URI: http://learnosity.com
- * License: Copyright 2014, Learnosity
+ * Author URI: http://www.learnosity.com
+ * License: Copyright 2014-2017, Learnosity
  */
 
 require_once 'classes/Learnosity/Plugin.php';

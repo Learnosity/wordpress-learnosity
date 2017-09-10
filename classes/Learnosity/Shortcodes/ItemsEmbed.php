@@ -134,7 +134,7 @@ class ItemsEmbed
 	private function render_init_js()
 	{
 		$signed_request = $this->generate_signed_request($this->config);
-		include(__DIR__ . '/../../../templates/init-js.php');
+		include(__DIR__ . '/../../../templates/init-items-js.php');
 	}
 
 	private function render_items($references, $should_render_submit)

@@ -3,7 +3,7 @@
  * Plugin Name: Learnosity API
  * Plugin URI: https://docs.learnosity.com/developers/developerguide/integration
  * Description: Simple Learnosity API integration in WordPress.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Learnosity
  * Author URI: http://www.learnosity.com
  * License: Copyright 2014-2017, Learnosity

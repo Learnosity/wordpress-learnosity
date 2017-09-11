@@ -15,7 +15,11 @@
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="lrn_items_api_url">Items API URL</label></th>
-				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://items.learnosity.com/?v1</i></p></td>
+				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://items-va.learnosity.com/?v1</i></p></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="lrn_reports_api_url">Reports API URL</label></th>
+				<td><input type="text" name="lrn_reports_api_url" id="lrn_reports_api_url" value="<?php echo get_option('lrn_reports_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://reports-va.learnosity.com/?v0</i></p></td>
 			</tr>
 			<tr valign="top">
 			<?php echo get_option('lrn_default_type') ?>
@@ -28,7 +32,14 @@
 				<label for="local_practice">Local Practice</label>
 				<p><i>Submit saves all results - great for real use, Local Practice doesn't save anything - great for demos.  This can be over-ridden at an activity level by specifying the type="local_practice|submit_practice"</i></p></td>
 			</tr>
+            <tr valign="top">
+                <th scope="row"><label for="lrn_student_prefix">Student Prefix</label></th>
+                <td><input type="text" name="lrn_student_prefix" id="lrn_student_prefix" value="<?php echo get_option('lrn_student_prefix','student_'); ?>" class="regular-text ltr"/><p><i>Prefix before the wordpress user id for submission to Learnosity.  Default is: "student_"</i></p></td>
+            </tr>
 		</table>
+
+
+
 
 		<?php @submit_button(); ?>
 	</form>

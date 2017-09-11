@@ -8,13 +8,15 @@ require_once __DIR__ . '/../../../vendor/learnosity-utils/RequestHelper.php';
 class ItemsEmbed
 {
 
-	public static $script_has_been_added = false;
-
 	private $config;
 	private $security;
 
+    private $student_prefix;
+
 	public function __construct($options,$mode)
 	{
+        $this->student_prefix = get_option('lrn_student_prefix','student_');
+
 		$this->security = array(
 			'consumer_key' => get_option('lrn_consumer_key'),
 			'domain' => $_SERVER['SERVER_NAME'],
@@ -27,7 +29,7 @@ class ItemsEmbed
 			'rendersubmit' => false,
 			'sessionid' => \UUID::generateUuid(),
 			'state' => 'initial',
-			'studentid' => 'student_' . get_current_user_id(),
+			'studentid' => $this->student_prefix . get_current_user_id(),
 			'type' => get_option('lrn_default_type','submit_practice')
 		);
 		$options = $this->parse_options($options);
@@ -134,7 +136,7 @@ class ItemsEmbed
 	private function render_init_js()
 	{
 		$signed_request = $this->generate_signed_request($this->config);
-		include(__DIR__ . '/../../../templates/init-js.php');
+		include(__DIR__ . '/../../../templates/init-items-js.php');
 	}
 
 	private function render_items($references, $should_render_submit)

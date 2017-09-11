@@ -30,10 +30,18 @@ class Plugin extends BasePlugin
 
 	public function enqueue_scripts()
 	{
-		$lrn_items_api_url = get_option('lrn_items_api_url','https://items.learnosity.com/?v1');
+		$lrn_items_api_url = get_option('lrn_items_api_url','https://items-va.learnosity.com/?v1');
+		$lrn_reports_api_url = get_option('lrn_reports_api_url','https://reports-va.learnosity.com/?v0');
 		wp_enqueue_script(
-			'learnosity',
+			'learnosity-items',
 			$lrn_items_api_url,
+			array(),
+			null,
+			false
+		);
+		wp_enqueue_script(
+			'learnosity-reports',
+			$lrn_reports_api_url,
 			array(),
 			null,
 			false
@@ -45,7 +53,9 @@ class Plugin extends BasePlugin
 		register_setting('lrn_api_group', 'lrn_consumer_key');
 		register_setting('lrn_api_group', 'lrn_consumer_secret');
 		register_setting('lrn_api_group', 'lrn_items_api_url');
-		register_setting('lrn_api_group', 'lrn_default_type');
+		register_setting('lrn_api_group', 'lrn_reports_api_url');
+        register_setting('lrn_api_group', 'lrn_default_type');
+        register_setting('lrn_api_group', 'lrn_student_prefix');
 	}
 
 	/**

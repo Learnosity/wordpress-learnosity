@@ -8,167 +8,173 @@ require_once __DIR__ . '/../../../vendor/learnosity-utils/RequestHelper.php';
 class ReportEmbed
 {
 
-	// public static $script_has_been_added = false;
+    // public static $script_has_been_added = false;
 
-	private $config;
-	private $security;
+    private $config;
+    private $security;
 
-	public function __construct($options)
-	{
-		$this->security = array(
-			'consumer_key' => get_option('lrn_consumer_key'),
-			'domain' => $_SERVER['SERVER_NAME'],
-			'timestamp' => gmdate('Ymd-Hi')
-		);
-		$defaults = 
-			array('reports'=> array(array(
-			
-				'id' => 'report-9',
-			    'type' => 'sessions-list',
-			    'limit' => 5,
-			    'users' => array(
-			    	'id' => 'student_' . get_current_user_id(),
-			    	'name' => 'My Student'
-			    	))
-				// 'activityid' => \UUID::generateUuid(),
-				// 'autorender' => true,
-				// 'name' => 'My Activity',
-				// 'rendersubmit' => false,
-				// 'sessionid' => \UUID::generateUuid(),
-				// 'state' => 'initial',
-				// 'studentid' => 'student_' . get_current_user_id(),
-				// 'type' => get_option('lrn_default_type','submit_practice')
-		));
+    private $report_id;
+    
+    private $student_prefix;
 
 
-		$options = $this->parse_options($options);
-		$this->config = array_merge($defaults, $options);
+    private $supported_reports = array(
+                'sessions-list',
+                'session-detail-by-item');
 
-		//Force ther rendering type based based on mode called
-		// lrn-items:inline or lrn-assess:assess
-		// $this->config['renderingtype'] = $mode;
+    public function __construct($options)
+    {
+        $this->report_id = \UUID::generateUuid();
+        $this->student_prefix = get_option('lrn_student_prefix','student_');
 
-	}
+        $this->security = array(
+            'consumer_key' => get_option('lrn_consumer_key'),
+            'domain' => $_SERVER['SERVER_NAME'],
+            'timestamp' => gmdate('Ymd-Hi')
+        );
 
-	public function render()
-	{
-		ob_start();
-		$this->render_init_js($this->config);
+        $defaults = array(
+            'id' => $this->report_id,
+            'type' => '',
+            
+            //settings for sessions-list
+            'limit' => 10,
 
-		$this->render_report();
+            'display_user' => 'true',
+            'display_activity' => 'true',
 
+            'users' => get_current_user_id(),
+            'activities' => '',
 
-		// if($this->config['renderingtype'] == 'inline'){
-		// 	//In Inline mode
-		// 	if ($this->config['autorender']) {
-		// 		$this->render_items(
-		// 			$this->items_attr_to_array($this->config['items']),
-		// 			$this->config['rendersubmit']
-		// 		);
-		// 	}
-		// }else{
-		// 	//We are in Assess mode.
-		// 	if ($this->config['autorender']) {
-		// 		$this->render_assess(
-		// 			$this->items_attr_to_array($this->config['items']),
-		// 			$this->config['rendersubmit']
-		// 		);
-		// 	}
-
-		// }
-		return ob_get_clean();
-	}
-
-	private function generate_signed_request()
-	{
-		$request = 
-			array('reports' => array(array(
-				
-				'id' => $this->config['reports'][0]['id'],
-			    'type' => $this->config['reports'][0]['type'],
-			    'limit' => $this->config['reports'][0]['limit'],
-			    'users' => array(array(
-			    	'id' => 'student_' . get_current_user_id(),
-			    	'name' => 'My Student'
-			    	)))
-
-			// 'user_id' => $this->config['studentid'],
-			// 'rendering_type' => $this->config['renderingtype'],
-			// 'name' => $this->config['name'],
-			// 'state' => $this->config['state'],
-			// 'activity_id' => $this->config['activityid'],		
-			// 'session_id' => $this->config['sessionid'],
-			// 'type' => $this->config['type'],
-			// 'config' => array(
-			// 	'renderSubmitButton' => $this->config['rendersubmit'],
-			// )
-		));
-
-		// If items defined then add them to the request
-		// if($this->config['items']){
-		// 	$request['items'] = $this->items_attr_to_array($this->config['items']);
-		// }
-
-		// // If activitytemplateid then add it to the request
-		// if($this->config['activitytemplateid']){
-		// 	$request['activity_template_id'] = $this->config['activitytemplateid'];
-		// }
+            //settings for session-detail-by-item
+            'user_id' => get_current_user_id(),
+            'session_id' => '',
+            'show_correct_answers' => 'true',
+            );
 
 
-		$request_helper = new \RequestHelper(
-			'reports',
-			$this->security,
-			get_option('lrn_consumer_secret'),
-			$request
-		);
-		$signed_request = $request_helper->generateRequest();
-		// if (isset($this->config['activitytemplateid'])) {
-		// 	$signed_request = json_decode($signed_request, true);
-		// 	$ati = $this->config['activitytemplateid'];
-		// 	$signed_request['request']['activity_template_id'] = $ati;
-		// 	$signed_request = json_encode($signed_request);
-		// }
-		return $signed_request;
-	}
+        $this->config = array_merge($defaults, $options);
 
-	private function items_attr_to_array($items_string)
-	{
-		$items_string = preg_replace('/\s+/', '', $items_string);
-		return explode(',', $items_string);
-	}
+    }
 
-	private function parse_boolean($str_val)
-	{
-		return $str_val === 'true' ||
-		       ($str_val !== 'false' && intval($str_val) > 0);
-	}
+    public function render()
+    {
+        ob_start();
 
-	private function parse_options($options)
-	{
-		// $booleanOptions = ['autorender', 'rendersubmit'];
-		// foreach ($booleanOptions as $i => $option) {
-		// 	if (isset($options[$option])) {
-		// 		$str_val = $options[$option];
-		// 		$options[$option] = $this->parse_boolean($str_val);
-		// 	}
-		// }
-		return $options;
-	}
+        //Check this is a supported report
+        if(!in_array($this->config['type'],$this->supported_reports)){
+            $this->render_error("Unsupported report type: {$this->config['type']}");
+        }
+        else
+        {
+            $this->render_init_js($this->config);
 
-	private function render_init_js()
-	{
-		$signed_request = $this->generate_signed_request($this->config);
-		include(__DIR__ . '/../../../templates/init-reports-js.php');
-	}
+            $this->render_report($this->report_id);
+        }
+        return ob_get_clean();
+    }
 
-	// private function render_items($references, $should_render_submit)
-	// {
-	// 	include(__DIR__ . '/../../../templates/items.php');
-	// }
+    private function get_user_name($user_id)
+    {
+        $user_info = get_userdata($user_id);
+        $username = $user_info->user_login;
+        $first_name = $user_info->first_name;
+        $last_name = $user_info->last_name;
+        return "$first_name $last_name ($username)";
+    }
 
-	private function render_report()
-	{
-		include(__DIR__ . '/../../../templates/report.php');
-	}
+    // Takes a comma seperated list of users and returns an array for reports
+    private function get_users_array($users_list){
+        $user_array = array();
+
+        foreach (explode(',', $users_list) as $key => $value) {
+            array_push($user_array,
+                array(
+                    'id' => $this->student_prefix . $value,
+                    'name' => $this->get_user_name($value)
+                    )
+                );
+        }
+        return $user_array;
+    }
+
+    // Takes a comma seperated list of users and returns an array for reports
+    private function get_activities_array($activities_list){
+        $act_array = array();
+
+        foreach (explode(',', $activities_list) as $key => $value) {
+            array_push($act_array,
+                array(
+                    'id' => $value,
+                    )
+                );
+        }
+        return $act_array;
+    }
+
+
+    private function generate_signed_request()
+    {
+        //Setup report Array
+        $report = array(
+            'id' => $this->config['id'],
+            'type' => $this->config['type']);
+
+        //Handle different type of reports
+        switch($this->config['type']){
+            case "sessions-list":
+                $report['limit'] = (int) $this->config['limit'];
+                $report['display_user'] = $this->parse_boolean($this->config['display_user']);
+                $report['display_activity'] = $this->parse_boolean($this->config['display_activity']);
+                $report['users'] = $this->get_users_array($this->config['users']);
+                if($this->config['activities'] != "" ){
+                    $report['activities'] = $this->get_activities_array($this->config['activities']);
+                }
+                break;
+            case "session-detail-by-item":
+                $report['session_id'] = $this->config['session_id'];
+                $report['user_id'] = $this->student_prefix . $this->config['user_id'];
+                break;
+            default:
+
+                break;
+        }
+
+        //Build correct array for single report
+        $request = array('reports' => array($report));
+
+        $request_helper = new \RequestHelper(
+            'reports',
+            $this->security,
+            get_option('lrn_consumer_secret'),
+            $request
+        );
+        $signed_request = $request_helper->generateRequest();
+
+        return $signed_request;
+    }
+
+    private function parse_boolean($str_val)
+    {
+        return $str_val === 'true' ||
+               ($str_val !== 'false' && intval($str_val) > 0);
+    }
+
+
+    private function render_init_js()
+    {
+        $signed_request = $this->generate_signed_request($this->config);
+        include(__DIR__ . '/../../../templates/init-reports-js.php');
+    }
+
+    private function render_report($report_id)
+    {
+        include(__DIR__ . '/../../../templates/report.php');
+    }
+    
+    private function render_error($msg)
+    {
+        include(__DIR__ . '/../../../templates/report_error.php');
+    }
 
 }

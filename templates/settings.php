@@ -32,7 +32,14 @@
 				<label for="local_practice">Local Practice</label>
 				<p><i>Submit saves all results - great for real use, Local Practice doesn't save anything - great for demos.  This can be over-ridden at an activity level by specifying the type="local_practice|submit_practice"</i></p></td>
 			</tr>
+            <tr valign="top">
+                <th scope="row"><label for="lrn_student_prefix">Student Prefix</label></th>
+                <td><input type="text" name="lrn_student_prefix" id="lrn_student_prefix" value="<?php echo get_option('lrn_student_prefix','student_'); ?>" class="regular-text ltr"/><p><i>Prefix before the wordpress user id for submission to Learnosity.  Default is: "student_"</i></p></td>
+            </tr>
 		</table>
+
+
+
 
 		<?php @submit_button(); ?>
 	</form>

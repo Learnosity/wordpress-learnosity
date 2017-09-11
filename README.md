@@ -151,13 +151,13 @@ The End
 
 
 ## Release History
-###Version 1.1.0 - 11th Sep 2017
+### Version 1.1.0 - 11th Sep 2017
 - Add support for Reports API with the sessions-list and session-detail-by-item reports
 
-###Version 1.0.0 - 2nd Jun 2017
+### Version 1.0.0 - 2nd Jun 2017
 - Initial release of the wordpress-learnosity plugin which makes it easy to add Learnosity into a Wordpress Site
 
-Pre v1 - 2014
+### Pre v1 - 2014
 - The base version of this was created in 2014
 
 

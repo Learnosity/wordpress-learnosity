@@ -1,8 +1,8 @@
 <div class="wrap">
 	<h2>Learnosity API settings</h2>
 	<form method="post" action="options.php"> 
-		<?php @settings_fields('lrn_api_group'); ?>
-		<?php @do_settings_fields('lrn_api_group'); ?>
+		<?php settings_fields('lrn_api_group'); ?>
+		<?php do_settings_sections('lrn_api_group'); ?>
 
 		<table class="form-table">  
 			<tr valign="top">
@@ -22,7 +22,6 @@
 				<td><input type="text" name="lrn_reports_api_url" id="lrn_reports_api_url" value="<?php echo get_option('lrn_reports_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://reports-va.learnosity.com/?v0</i></p></td>
 			</tr>
 			<tr valign="top">
-			<?php echo get_option('lrn_default_type') ?>
 				<th scope="row">Default Type:</th>
 				<td>
 				<input type="radio" name="lrn_default_type" id="submit_practice" value="submit_practice" <?php echo(get_option('lrn_default_type')=='submit_practice'?'checked="checked"':'') ?> >
@@ -38,9 +37,6 @@
             </tr>
 		</table>
 
-
-
-
-		<?php @submit_button(); ?>
+		<?php submit_button(); ?>
 	</form>
 </div>

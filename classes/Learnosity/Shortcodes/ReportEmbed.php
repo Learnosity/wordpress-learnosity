@@ -33,6 +33,9 @@ class ReportEmbed
             'timestamp' => gmdate('Ymd-Hi')
         );
 
+        //Handling URL parameters
+        $lrnsid = $this->get_url_parameter('lrnsid','');
+
         $defaults = array(
             'id' => $this->report_id,
             'type' => '',
@@ -48,7 +51,7 @@ class ReportEmbed
 
             //settings for session-detail-by-item
             'user_id' => get_current_user_id(),
-            'session_id' => '',
+            'session_id' => $lrnsid,
             'show_correct_answers' => 'true',
             );
 
@@ -72,6 +75,14 @@ class ReportEmbed
             $this->render_report($this->report_id);
         }
         return ob_get_clean();
+    }
+
+    private function get_url_parameter($key, $default = '')
+    {
+        if (!isset($_GET[$key]) || empty($_GET[$key])) {
+            return $default;
+        }
+        return strip_tags((string) wp_unslash($_GET[$key]));
     }
 
     private function get_user_name($user_id)

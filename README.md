@@ -155,9 +155,12 @@ http://wordpress.vg.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-
 
 
 ## Release History
-### Version 1.1.1 - 14th Nov 2017
+### Version 1.2.0 - 14th Nov 2017
 - Add support for lrnsid as url parameter of WordPress landing page for Session Detail By Item report
 - Add support for onsubmit_redirect_url parameter for lrn-assess shortcode 
+
+### Version 1.1.1 - 6th Oct 2017
+- Minor cleanups to settings page
 
 ### Version 1.1.0 - 11th Sep 2017
 - Add support for Reports API with the sessions-list and session-detail-by-item reports

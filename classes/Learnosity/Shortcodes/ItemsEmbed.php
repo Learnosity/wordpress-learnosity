@@ -4,6 +4,7 @@ namespace Learnosity\Shortcodes;
 
 require_once __DIR__ . '/../../../vendor/learnosity-utils/uuid.php';
 require_once __DIR__ . '/../../../vendor/learnosity-utils/RequestHelper.php';
+require_once __DIR__ . '/../../../vendor/learnosity-utils/UrlHelper.php';
 
 class ItemsEmbed
 {
@@ -26,8 +27,12 @@ class ItemsEmbed
 
         $this->sessionId = \UUID::generateUuid();
 
+        //Handling URL parameters
+        $lrnactid = \UrlHelper::get_url_parameter('lrnactid','');
+
         $defaults = array(
             'activityid' => \UUID::generateUuid(),
+            'activitytemplateid' => $lrnactid,
             'autorender' => true,
             'name' => 'My Activity',
             'rendersubmit' => false,

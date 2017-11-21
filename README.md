@@ -69,6 +69,11 @@ Using the `lrn-assess` shortcode lets you include an Assessment style activity.
 
 Note you can use either the activitytemplateid to load from the Author site/Item Bank, or you can specify individual items.
 
+The activitytemplateid could be also passed as url parameter (lrnactid) for WordPress landing page:
+```
+http://wordpress.vg.learnosity.com/2017/11/21/assessment-url/?lrnactid=ACTIVITY_3_DEMO
+```
+
 
 #### Advanced Inline Usage
 
@@ -148,13 +153,16 @@ Parameters
 [lrn-report type="session-detail-by-item" session_id="17b9bb6e-16f8-4808-aebd-42a246a1158e"]
 ```
 
-This report type accepts lrnsid (session_id) as url parameter for WordPress landing page
+The session_id could be also passed as url parameter (lrnsid) for WordPress landing page:
 ```
 http://wordpress.vg.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa
 ```
 
 
 ## Release History
+### Version 1.2.1 - 21th Nov 2017
+- Add support for lrnactid as url parameter of WordPress landing page for lrn-assess
+
 ### Version 1.2.0 - 14th Nov 2017
 - Add support for lrnsid as url parameter of WordPress landing page for Session Detail By Item report
 - Add support for onsubmit_redirect_url parameter for lrn-assess shortcode 

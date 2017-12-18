@@ -164,10 +164,10 @@ http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c
 
 
 ## Release History
-### Version 1.4.0 - 21th Nov 2017
+### Version 1.4.0 - 18th Dec 2017
 - Add support for lrnactname as url parameter of WordPress page for lrn-assess
 
-### Version 1.3.0 - 21th Nov 2017
+### Version 1.3.0 - 21st Nov 2017
 - Add support for lrnactid as url parameter of WordPress page for lrn-assess
 
 ### Version 1.2.0 - 14th Nov 2017

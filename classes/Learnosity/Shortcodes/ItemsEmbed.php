@@ -29,12 +29,13 @@ class ItemsEmbed
 
         //Handling URL parameters
         $lrnactid = \UrlHelper::get_url_parameter('lrnactid','');
+        $lrnactname = \UrlHelper::get_url_parameter('lrnactname','My Activity');
 
         $defaults = array(
             'activityid' => \UUID::generateUuid(),
             'activitytemplateid' => $lrnactid,
             'autorender' => true,
-            'name' => 'My Activity',
+            'name' => $lrnactname,
             'rendersubmit' => false,
             'sessionid' => $this->sessionId,
             'state' => 'initial',
@@ -130,7 +131,6 @@ class ItemsEmbed
         if ($this->config['activitytemplateid']) {
             $request['activity_template_id'] = $this->config['activitytemplateid'];
         }
-
 
         $request_helper = new \RequestHelper(
             'items',

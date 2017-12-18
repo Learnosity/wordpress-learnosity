@@ -56,7 +56,7 @@ The 'items' attribute is the only required attribute, the others are defaulted t
 - rendersubmit: false
 - sessionid: (randomly generated)
 - state: initial
-- studentid: student_[wordpress user id].  Eg: student_123.  Note: student_0 is used when not authenticated.
+- studentid: student_[WordPress user id].  Eg: student_123.  Note: student_0 is used when not authenticated.
 - type: (as configured in settings - default of submit_practice but can be defaulted to local_practice)
 - onsubmit_redirect_url: on submit, redirect to this url (sessionid generated will be added to the end as lrnsid url parameter)
 
@@ -69,9 +69,12 @@ Using the `lrn-assess` shortcode lets you include an Assessment style activity.
 
 Note you can use either the activitytemplateid to load from the Author site/Item Bank, or you can specify individual items.
 
-activitytemplateid could be also passed as url parameter (lrnactid) for WordPress page:
+Supported url parameters for WordPress page:
+- lrnactid (activitytemplateid)
+- lrnactname (name) 
+
 ```
-http://wordpress.learnosity.com/2017/11/21/assessment-url/?lrnactid=ACTIVITY_3_DEMO
+http://wordpress.learnosity.com/2017/11/21/assessment-url/?lrnactid=DemoActivityWordpress&lrnactname=DemoActivityName
 ```
 
 
@@ -153,15 +156,19 @@ Parameters
 [lrn-report type="session-detail-by-item" session_id="17b9bb6e-16f8-4808-aebd-42a246a1158e"]
 ```
 
-session_id could be also passed as url parameter (lrnsid) for WordPress page:
+Supported url parameters for WordPress page:
+- lrnsid (session_id)
 ```
 http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa
 ```
 
 
 ## Release History
+### Version 1.4.0 - 21th Nov 2017
+- Add support for lrnactname as url parameter of WordPress page for lrn-assess
+
 ### Version 1.3.0 - 21th Nov 2017
-- Add support for lrnactid as url parameter of WordPress landing page for lrn-assess
+- Add support for lrnactid as url parameter of WordPress page for lrn-assess
 
 ### Version 1.2.0 - 14th Nov 2017
 - Add support for lrnsid as url parameter of WordPress page for Session Detail By Item report

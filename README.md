@@ -1,4 +1,4 @@
-# Learnosity plugin for Wordpress
+# Learnosity plugin for WordPress
 
 ## Work in progress
 
@@ -12,7 +12,7 @@ TODO:
 - [x] Add support for submit practice - N/a - already worked
 - [x] Add support for changing default from local_practice to submit_practice - and make that default
 - [x] Add support for Activity Template Id
-- [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid.
+- [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid
 - [ ] Only load primer when there are shortcodes on the page
 - [ ] Support for session id
 - [ ] Test multiple activities on the one page
@@ -29,7 +29,7 @@ Tags: learnosity, api, assessment, education
 Requires at least: 3.5.1
 License: Copyright (c) 2017 Learnosity under the MIT License
 
-The Learnosity API plugin allows you to embed Learnosity items on your site using WordPress shortcodes.
+The Learnosity plugin allows you to embed Learnosity items on your site using WordPress shortcodes.
 
 ### Installation
 After activating the plugin, visit Settings > Learnosity API Plugin and add your Learnosity consumer key and consumer secret (course ID is optional). Once you\'ve saved these settings, you\'ll be able to start embedding Learnosity items on your site by using shortcodes.
@@ -69,9 +69,9 @@ Using the `lrn-assess` shortcode lets you include an Assessment style activity.
 
 Note you can use either the activitytemplateid to load from the Author site/Item Bank, or you can specify individual items.
 
-The activitytemplateid could be also passed as url parameter (lrnactid) for WordPress landing page:
+activitytemplateid could be also passed as url parameter (lrnactid) for WordPress page:
 ```
-http://wordpress.vg.learnosity.com/2017/11/21/assessment-url/?lrnactid=ACTIVITY_3_DEMO
+http://wordpress.learnosity.com/2017/11/21/assessment-url/?lrnactid=ACTIVITY_3_DEMO
 ```
 
 
@@ -105,7 +105,7 @@ You can also manually embed a submit button this way:
 
 
 ### Reports API Usage
-A subset of reports are currently available for us in the wordpress plugin.
+A subset of reports are currently available in Learnosity plugin.
 
 
 ### Sessions List report
@@ -153,18 +153,18 @@ Parameters
 [lrn-report type="session-detail-by-item" session_id="17b9bb6e-16f8-4808-aebd-42a246a1158e"]
 ```
 
-The session_id could be also passed as url parameter (lrnsid) for WordPress landing page:
+session_id could be also passed as url parameter (lrnsid) for WordPress page:
 ```
-http://wordpress.vg.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa
+http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa
 ```
 
 
 ## Release History
-### Version 1.2.1 - 21th Nov 2017
+### Version 1.3.0 - 21th Nov 2017
 - Add support for lrnactid as url parameter of WordPress landing page for lrn-assess
 
 ### Version 1.2.0 - 14th Nov 2017
-- Add support for lrnsid as url parameter of WordPress landing page for Session Detail By Item report
+- Add support for lrnsid as url parameter of WordPress page for Session Detail By Item report
 - Add support for onsubmit_redirect_url parameter for lrn-assess shortcode 
 
 ### Version 1.1.1 - 6th Oct 2017
@@ -178,6 +178,3 @@ http://wordpress.vg.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-
 
 ### Pre v1 - 2014
 - The base version of this was created in 2014
-
-
-

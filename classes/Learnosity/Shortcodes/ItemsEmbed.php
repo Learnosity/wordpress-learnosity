@@ -47,7 +47,6 @@ class ItemsEmbed
         //Force ther rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
         $this->config['renderingtype'] = $mode;
-
     }
 
     public function render()

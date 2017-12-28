@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../../vendor/learnosity-utils/uuid.php';
 require_once __DIR__ . '/../../../vendor/learnosity-utils/RequestHelper.php';
 require_once __DIR__ . '/../../../vendor/learnosity-utils/UrlHelper.php';
 
+
 class ReportEmbed
 {
 
@@ -15,18 +16,18 @@ class ReportEmbed
     private $security;
 
     private $report_id;
-    
+
     private $student_prefix;
 
 
     private $supported_reports = array(
-                'sessions-list',
-                'session-detail-by-item');
+        'sessions-list',
+        'session-detail-by-item');
 
     public function __construct($options)
     {
         $this->report_id = \UUID::generateUuid();
-        $this->student_prefix = get_option('lrn_student_prefix','student_');
+        $this->student_prefix = get_option('lrn_student_prefix', 'student_');
 
         $this->security = array(
             'consumer_key' => get_option('lrn_consumer_key'),
@@ -35,30 +36,36 @@ class ReportEmbed
         );
 
         //Handling URL parameters
-        $lrnsid = \UrlHelper::get_url_parameter('lrnsid','');
+        $lrnsid = \UrlHelper::get_url_parameter('lrnsid', '');
+        $lrnuid = \UrlHelper::get_url_parameter('lrnuid', '');
+
+        // get_current_user_id() - (int) The current user's ID, or 0 if no user is logged in
+        $lrnRepUserId = get_current_user_id();
+        if ($lrnRepUserId == 0 && $lrnuid != '') {
+            // get only id without prefix as prefix will be added later
+            $lrnRepUserId = str_replace($this->student_prefix,"",$lrnuid);
+        }
 
         $defaults = array(
             'id' => $this->report_id,
             'type' => '',
-            
+
             //settings for sessions-list
             'limit' => 10,
 
             'display_user' => 'true',
             'display_activity' => 'true',
 
-            'users' => get_current_user_id(),
+            'users' => $lrnRepUserId,
             'activities' => '',
 
             //settings for session-detail-by-item
-            'user_id' => get_current_user_id(),
+            'user_id' => $lrnRepUserId,
             'session_id' => $lrnsid,
             'show_correct_answers' => 'true',
-            );
-
+        );
 
         $this->config = array_merge($defaults, $options);
-
     }
 
     public function render()
@@ -66,11 +73,9 @@ class ReportEmbed
         ob_start();
 
         //Check this is a supported report
-        if(!in_array($this->config['type'],$this->supported_reports)){
+        if (!in_array($this->config['type'], $this->supported_reports)) {
             $this->render_error("Unsupported report type: {$this->config['type']}");
-        }
-        else
-        {
+        } else {
             $this->render_init_js($this->config);
 
             $this->render_report($this->report_id);
@@ -88,7 +93,8 @@ class ReportEmbed
     }
 
     // Takes a comma seperated list of users and returns an array for reports
-    private function get_users_array($users_list){
+    private function get_users_array($users_list)
+    {
         $user_array = array();
 
         foreach (explode(',', $users_list) as $key => $value) {
@@ -96,22 +102,23 @@ class ReportEmbed
                 array(
                     'id' => $this->student_prefix . $value,
                     'name' => $this->get_user_name($value)
-                    )
-                );
+                )
+            );
         }
         return $user_array;
     }
 
     // Takes a comma seperated list of users and returns an array for reports
-    private function get_activities_array($activities_list){
+    private function get_activities_array($activities_list)
+    {
         $act_array = array();
 
         foreach (explode(',', $activities_list) as $key => $value) {
             array_push($act_array,
                 array(
                     'id' => $value,
-                    )
-                );
+                )
+            );
         }
         return $act_array;
     }
@@ -125,13 +132,13 @@ class ReportEmbed
             'type' => $this->config['type']);
 
         //Handle different type of reports
-        switch($this->config['type']){
+        switch ($this->config['type']) {
             case "sessions-list":
-                $report['limit'] = (int) $this->config['limit'];
+                $report['limit'] = (int)$this->config['limit'];
                 $report['display_user'] = $this->parse_boolean($this->config['display_user']);
                 $report['display_activity'] = $this->parse_boolean($this->config['display_activity']);
                 $report['users'] = $this->get_users_array($this->config['users']);
-                if($this->config['activities'] != "" ){
+                if ($this->config['activities'] != "") {
                     $report['activities'] = $this->get_activities_array($this->config['activities']);
                 }
                 break;
@@ -161,7 +168,7 @@ class ReportEmbed
     private function parse_boolean($str_val)
     {
         return $str_val === 'true' ||
-               ($str_val !== 'false' && intval($str_val) > 0);
+            ($str_val !== 'false' && intval($str_val) > 0);
     }
 
 
@@ -175,7 +182,7 @@ class ReportEmbed
     {
         include(__DIR__ . '/../../../templates/report.php');
     }
-    
+
     private function render_error($msg)
     {
         include(__DIR__ . '/../../../templates/report_error.php');

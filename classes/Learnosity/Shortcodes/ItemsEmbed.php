@@ -25,8 +25,6 @@ class ItemsEmbed
             'timestamp' => gmdate('Ymd-Hi')
         );
 
-        $this->sessionId = \UUID::generateUuid();
-
         //Handling URL parameters
         $lrnactid = \UrlHelper::get_url_parameter('lrnactid','');
         $lrnactname = \UrlHelper::get_url_parameter('lrnactname','My Activity');
@@ -37,7 +35,7 @@ class ItemsEmbed
             'autorender' => true,
             'name' => $lrnactname,
             'rendersubmit' => false,
-            'sessionid' => $this->sessionId,
+            'sessionid' => \UUID::generateUuid(),
             'state' => 'initial',
             'studentid' => $this->student_prefix . get_current_user_id(),
             'type' => get_option('lrn_default_type', 'submit_practice')
@@ -102,14 +100,16 @@ class ItemsEmbed
                 // adding learnosity parameter with "&" prefix
                 // using html_entity_decode as last & is converted to "&amp;"
                 if (substr(html_entity_decode($url_parsed['query']), -1) != '&') {
-                    $url_parsed['query'] .= '&lrnsid=' . $this->sessionId;
+                    $url_parsed['query'] .= '&lrnsid=' . $this->config['sessionid'];
                 } else {
-                    $url_parsed['query'] .= 'lrnsid=' . $this->sessionId;
+                    $url_parsed['query'] .= 'lrnsid=' . $this->config['sessionid'];
                 }
             } else {
                 // adding just learnosity parameter as the only parameter
-                $url_parsed['query'] = 'lrnsid=' . $this->sessionId;
+                $url_parsed['query'] = 'lrnsid=' . $this->config['sessionid'];
             }
+            // adding student_id for detailed report for non-logged users
+            $url_parsed['query'] .= '&lrnuid=' . $this->config['studentid'];
 
             // building new URL with new 'lrnsid' parameter added
             // TODO

@@ -58,7 +58,7 @@ The 'items' attribute is the only required attribute, the others are defaulted t
 - state: initial
 - studentid: student_[WordPress user id].  Eg: student_123.  Note: student_0 is used when not authenticated.
 - type: (as configured in settings - default of submit_practice but can be defaulted to local_practice)
-- onsubmit_redirect_url: on submit, redirect to this url (sessionid generated will be added to the end as lrnsid url parameter)
+- onsubmit_redirect_url: on submit, redirect to this url (sessionid and studentid generated will be added at the end automatically as lrnsid and lrnusid url parameters)
 
 #### Basic Assessment Example
 Using the `lrn-assess` shortcode lets you include an Assessment style activity.
@@ -142,6 +142,13 @@ Show a report for a single activity id.  Note: activity id's are generated autom
 [lrn-report type="sessions-list" limit="10" activities="c98ee0e5-b50d-40b8-9d30-aa21c2a0d712"]
 ```
 
+Supported url parameters for WordPress page:
+- lrnusid (single value for users). Only works if the current WordPress user is not logged in.
+```
+http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa&lrnusid=student_123
+```
+
+
 ### Session Detail By Item report
 
 Show a full session detail report:
@@ -158,12 +165,16 @@ Parameters
 
 Supported url parameters for WordPress page:
 - lrnsid (session_id)
+- lrnusid (user_id). Only works if the current WordPress user is not logged in.
 ```
-http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa
+http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa&lrnusid=student_123
 ```
 
 
 ## Release History
+### Version 1.5.0 - 29th Dec 2017
+- Add support for lrnuid url parameter for lrn-assess and lrn-report
+
 ### Version 1.4.0 - 18th Dec 2017
 - Add support for lrnactname as url parameter of WordPress page for lrn-assess
 

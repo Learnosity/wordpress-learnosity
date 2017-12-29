@@ -11,7 +11,6 @@ class ItemsEmbed
 
     private $config;
     private $security;
-    private $sessionId;
 
     private $student_prefix;
 

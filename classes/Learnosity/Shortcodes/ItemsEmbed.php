@@ -42,7 +42,7 @@ class ItemsEmbed
         $options = $this->parse_options($options);
         $this->config = array_merge($defaults, $options);
 
-        //Force ther rendering type based based on mode called
+        //Force their rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
         $this->config['renderingtype'] = $mode;
     }
@@ -68,7 +68,6 @@ class ItemsEmbed
                     $this->config['rendersubmit']
                 );
             }
-
         }
         return ob_get_clean();
     }
@@ -127,7 +126,7 @@ class ItemsEmbed
         }
 
         // If activitytemplateid then add it to the request
-        if ($this->config['activitytemplateid']) {
+        if (isset($this->config['activitytemplateid']) AND !empty($this->config['activitytemplateid'])) {
             $request['activity_template_id'] = $this->config['activitytemplateid'];
         }
 
@@ -138,12 +137,6 @@ class ItemsEmbed
             $request
         );
         $signed_request = $request_helper->generateRequest();
-        if (isset($this->config['activitytemplateid'])) {
-            $signed_request = json_decode($signed_request, true);
-            $ati = $this->config['activitytemplateid'];
-            $signed_request['request']['activity_template_id'] = $ati;
-            $signed_request = json_encode($signed_request);
-        }
         return $signed_request;
     }
 

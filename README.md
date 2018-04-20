@@ -172,6 +172,9 @@ http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c
 
 
 ## Release History
+### Version 1.6.0 - 20th Apr 2018
+- Signature mismatch issue for lrn-items fixed
+
 ### Version 1.5.0 - 29th Dec 2017
 - Add support for lrnuid url parameter for lrn-assess and lrn-report
 

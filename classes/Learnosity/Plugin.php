@@ -31,7 +31,7 @@ class Plugin extends BasePlugin
 	public function enqueue_scripts()
 	{
 		$lrn_items_api_url = get_option('lrn_items_api_url','https://items-va.learnosity.com/?v1');
-		$lrn_reports_api_url = get_option('lrn_reports_api_url','https://reports-va.learnosity.com/?v0');
+		$lrn_reports_api_url = get_option('lrn_reports_api_url','https://reports-va.learnosity.com/?v1');
 		wp_enqueue_script(
 			'learnosity-items',
 			$lrn_items_api_url,

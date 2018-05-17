@@ -1,35 +1,24 @@
 # Learnosity plugin for WordPress
 
-## Work in progress
-
-This Plugin is currently undergoing some rework and cleanup to update it to allow the latest functionality and become fully supported.
-
-TODO:
-- [x] Add support for Items API version (Config level)
-- [x] Remove Course_id setting in admin
-- [x] Remove support for Questions API version
-- [x] Add support for authenticated users
-- [x] Add support for submit practice - N/a - already worked
-- [x] Add support for changing default from local_practice to submit_practice - and make that default
-- [x] Add support for Activity Template Id
-- [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid
-- [ ] Only load primer when there are shortcodes on the page
-- [ ] Support for session id
-- [ ] Test multiple activities on the one page
-- [ ] Are multiple submit buttons supported?
-- [X] Support for basic reporting
-
-Future:
-- [ ] Support for more reporting
-
-
-
 ## Learnosity API
 Tags: learnosity, api, assessment, education
 Requires at least: 3.5.1
 License: Copyright (c) 2017 Learnosity under the MIT License
 
 The Learnosity plugin allows you to embed Learnosity items on your site using WordPress shortcodes.
+
+## Current Work in progress
+
+This Plugin is currently undergoing some rework and cleanup to update it to allow the latest functionality and become fully supported.
+
+TODO:
+- [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid
+- [ ] Only load primer when there are shortcodes on the page
+- [ ] Support for session id
+- [ ] Test multiple activities on the one page
+- [ ] Are multiple submit buttons supported?
+- [ ] Support for more reporting
+
 
 ### Installation
 After activating the plugin, visit Settings > Learnosity API Plugin and add your Learnosity consumer key and consumer secret (course ID is optional). Once you\'ve saved these settings, you\'ll be able to start embedding Learnosity items on your site by using shortcodes.

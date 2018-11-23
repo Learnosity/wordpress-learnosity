@@ -19,12 +19,13 @@ class ReportEmbed
 
     private $student_prefix;
 
+    private $contentProvided = false;
 
     private $supported_reports = array(
         'sessions-list',
         'session-detail-by-item');
 
-    public function __construct($options)
+    public function __construct($options, $content)
     {
         $this->report_id = \UUID::generateUuid();
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
@@ -43,7 +44,7 @@ class ReportEmbed
         $lrnRepUserId = get_current_user_id();
         if ($lrnRepUserId == 0 && $lrnuid != '') {
             // get only id without prefix as prefix will be added later
-            $lrnRepUserId = str_replace($this->student_prefix,"",$lrnuid);
+            $lrnRepUserId = str_replace($this->student_prefix, "", $lrnuid);
         }
 
         $defaults = array(
@@ -65,7 +66,24 @@ class ReportEmbed
             'show_correct_answers' => 'true',
         );
 
-        $this->config = array_merge($defaults, $options);
+        //supporting JSON to be passed inside short code: [lrn-report] <pre>{...}]}</pre>[/lrn-report]
+        //using preformatted text <pre> to avoid replacing " for “
+        if ($options == '' && $content != '') {
+            // set up a flag for compatibility
+            $this->contentProvided = true;
+            //clean out <pre>, </pre> stuff
+            $content = str_replace(["<pre>", "</pre>"], ["", ""], $content);
+            $content = json_decode(sanitize_text_field($content), TRUE);
+
+            if (is_null($content)) {
+                $this->render_error("Invalid JSON for Learnosity Reports API provided.");
+            } else {
+                $content["id"] = $this->report_id;
+                $this->config = $content;
+            }
+        } else {
+            $this->config = array_merge($defaults, $options);
+        }
     }
 
     public function render()
@@ -73,12 +91,11 @@ class ReportEmbed
         ob_start();
 
         //Check this is a supported report
-        if (!in_array($this->config['type'], $this->supported_reports)) {
+        if (!$this->contentProvided && !in_array($this->config['type'], $this->supported_reports)) {
             $this->render_error("Unsupported report type: {$this->config['type']}");
         } else {
-            $this->render_init_js($this->config);
-
-            $this->render_report($this->report_id);
+                $this->render_init_js($this->config);
+                $this->render_report($this->report_id);
         }
         return ob_get_clean();
     }
@@ -96,7 +113,6 @@ class ReportEmbed
     private function get_users_array($users_list)
     {
         $user_array = array();
-
         foreach (explode(',', $users_list) as $key => $value) {
             array_push($user_array,
                 array(
@@ -137,17 +153,31 @@ class ReportEmbed
                 $report['limit'] = (int)$this->config['limit'];
                 $report['display_user'] = $this->parse_boolean($this->config['display_user']);
                 $report['display_activity'] = $this->parse_boolean($this->config['display_activity']);
-                $report['users'] = $this->get_users_array($this->config['users']);
-                if ($this->config['activities'] != "") {
-                    $report['activities'] = $this->get_activities_array($this->config['activities']);
+
+                //support string (default via $attrs) and array (via $content) as input parameters
+                if (gettype($this->config['users']) == "string" && $this->config['users'] != "") {
+                    $report['users'] = $this->get_users_array($this->config['users']);
+                } elseif (gettype($this->config['users']) == "array") {
+                    $report['users'] = $this->config['users'];
                 }
+
+                //support string (default via $attrs) and array (via $content) as input parameters
+                if (gettype($this->config['activities']) == "string" && $this->config['activities'] != "") {
+                    $report['activities'] = $this->get_activities_array($this->config['activities']);
+                } elseif (gettype($this->config['activities']) == "array") {
+                    $report['activities'] = $this->config['activities'];
+                }
+
                 break;
             case "session-detail-by-item":
                 $report['session_id'] = $this->config['session_id'];
                 $report['user_id'] = $this->student_prefix . $this->config['user_id'];
                 break;
             default:
-
+                //grab all the parameters from $content JSON
+                if ($this->contentProvided) {
+                    $report = $this->config;
+                }
                 break;
         }
 
@@ -161,7 +191,6 @@ class ReportEmbed
             $request
         );
         $signed_request = $request_helper->generateRequest();
-
         return $signed_request;
     }
 

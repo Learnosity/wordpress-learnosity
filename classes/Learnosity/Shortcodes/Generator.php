@@ -30,9 +30,9 @@ class Generator
         return $item_embed->render();
     }
 
-    public function render_items($attrs)
+    public function render_items($attrs, $content)
     {
-        $items_embed = new ItemsEmbed($attrs, 'inline');
+        $items_embed = new ItemsEmbed($attrs, 'inline', $content);
         return $items_embed->render();
     }
 
@@ -42,9 +42,9 @@ class Generator
         return $submit_embed->render();
     }
 
-    public function render_assess($attrs)
+    public function render_assess($attrs, $content)
     {
-        $assess_embed = new ItemsEmbed($attrs, 'assess');
+        $assess_embed = new ItemsEmbed($attrs, 'assess', $content);
         return $assess_embed->render();
     }
 
@@ -53,5 +53,4 @@ class Generator
         $report_embed = new ReportEmbed($attrs, $content);
         return $report_embed->render();
     }
-
 }

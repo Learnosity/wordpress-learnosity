@@ -5,6 +5,10 @@
     window.addEventListener("load", function () {
         window.learnosityCollection = window.learnosityCollection || [];
         window.learnosityCollection.push(LearnosityItems.init(<?php echo $signed_request; ?>, {
+            readyListener: function () {
+                console.log("Items API is ready!");
+                <?php echo $this->readyListenerJSCode; ?>
+            },
             errorListener: function (e) {
                 console.log(e);
             }

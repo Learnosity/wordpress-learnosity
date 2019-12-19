@@ -8,13 +8,14 @@ require_once __DIR__ . '/../../../vendor/learnosity-utils/UrlHelper.php';
 
 class ItemsEmbed
 {
-
     private $config;
     private $security;
 
     private $student_prefix;
 
-    public function __construct($options, $mode)
+    private $readyListenerJSCode = "";
+
+    public function __construct($options, $mode, $content)
     {
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
 
@@ -25,8 +26,8 @@ class ItemsEmbed
         );
 
         //Handling URL parameters
-        $lrnactid = \UrlHelper::get_url_parameter('lrnactid','');
-        $lrnactname = \UrlHelper::get_url_parameter('lrnactname','My Activity');
+        $lrnactid = \UrlHelper::get_url_parameter('lrnactid', '');
+        $lrnactname = \UrlHelper::get_url_parameter('lrnactname', 'My Activity');
 
         $defaults = array(
             'activityid' => \UUID::generateUuid(),
@@ -40,8 +41,13 @@ class ItemsEmbed
             'type' => get_option('lrn_default_type', 'submit_practice')
         );
         $options = $this->parse_options($options);
-        $this->config = array_merge($defaults, $options);
 
+        //supporting $content to be passed inside short code
+        //[lrn-assess]<pre>JavaScript code</pre>[/lrn-assess]
+        if ($content != '') {
+            $this->readyListenerJSCode = sanitize_text_field($content);
+        }
+        $this->config = array_merge($defaults, $options);
         //Force their rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
         $this->config['renderingtype'] = $mode;
@@ -50,7 +56,8 @@ class ItemsEmbed
     public function render()
     {
         ob_start();
-        $this->render_init_js($this->config);
+
+        $this->render_init_js();
 
         if ($this->config['renderingtype'] == 'inline') {
             //In Inline mode

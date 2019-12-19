@@ -66,18 +66,18 @@ class ReportEmbed
             'show_correct_answers' => 'true',
         );
 
-        //supporting JSON to be passed inside short code: [lrn-report] <pre>{...}]}</pre>[/lrn-report]
+        //supporting $content to be passed inside short code
+        //[lrn-report]<pre>{JSON}</pre>[/lrn-report]
         //using preformatted text <pre> to avoid replacing " for “
         if ($options == '' && $content != '') {
             // set up a flag for compatibility
             $this->contentProvided = true;
-            //clean out <pre>, </pre> stuff
-            $content = str_replace(["<pre>", "</pre>"], ["", ""], $content);
             $content = json_decode(sanitize_text_field($content), TRUE);
 
             if (is_null($content)) {
                 $this->render_error("Invalid JSON for Learnosity Reports API provided.");
             } else {
+                //replacing report id even if was passed in content as WP plugin generates its own UUID value used for HTML hook
                 $content["id"] = $this->report_id;
                 $this->config = $content;
             }
@@ -94,8 +94,8 @@ class ReportEmbed
         if (!$this->contentProvided && !in_array($this->config['type'], $this->supported_reports)) {
             $this->render_error("Unsupported report type: {$this->config['type']}");
         } else {
-                $this->render_init_js($this->config);
-                $this->render_report($this->report_id);
+            $this->render_init_js();
+            $this->render_report($this->report_id);
         }
         return ob_get_clean();
     }

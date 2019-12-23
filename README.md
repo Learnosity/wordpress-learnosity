@@ -66,7 +66,6 @@ Supported url parameters for WordPress page:
 http://wordpress.learnosity.com/2017/11/21/assessment-url/?lrnactid=DemoActivityWordpress&lrnactname=DemoActivityName
 ```
 
-
 #### Advanced Inline Usage
 
 Setting `autorender="false"` will allow you to place the item elements wherever you please, e.g:
@@ -95,9 +94,55 @@ You can also manually embed a submit button this way:
 [lrn-submit]
 ```
 
+For both assess and inline rendering types, it is supported to pass readyListener JS code as content of 
+Items API plugin shortcode. If multiple instances of Items API are on page (multiple shortcodes) please use 
+correct index for "learnosityCollection". Example below refers to the first (index 0) instance: 
+
+```
+[lrn-assess activitytemplateid="TexttoSpeech_Testing_Activity"]
+<pre>
+var assessApp = window.learnosityCollection[0].assessApp();
+assessApp.on("test:start", function() {
+    myFunction();
+});
+</pre>
+[/lrn-assess]
+```
+
 
 ### Reports API Usage
 A subset of reports are currently available in Learnosity plugin.
+
+Valid JSON for Reports API init options could be passed as content of Reports API plugin shortcode. 
+
+```
+[lrn-report]
+<pre>
+{
+	"id": "item-scores-by-tag-by-user-report",
+	"type": "item-scores-by-tag-by-user",
+	"items_tags_live_dataset_reference": "content-hierarchy-items-dataset-00001",
+	"session_items_live_dataset_reference": "content-hierarchy-sessions-dataset-00001",
+	"users": [{
+		"id": "user_20180417a_00001",
+		"name": "Student Name 1"
+	}, {
+		"id": "user_20180417a_00002",
+		"name": "Student Name 2"
+	}, {
+		"id": "user_20180417a_00003",
+		"name": "Student Name 3"
+	}],
+	"row_tag_type": "ch_proficiency_strand",
+	"column_tag_types": ["ch_topic", "ch_subtopic", "ch_curriculum_code"],
+	"item_tags": [{
+		"type": "ch_title",
+		"name": "content_hierarchy_001"
+	}]
+}
+</pre>
+[/lrn-report]
+```
 
 
 ### Sessions List report
@@ -161,8 +206,12 @@ http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c
 
 
 ## Release History
+### Version 1.7.0 - 23rd Dec 2019
+- [FEATURE] Support readyListener JS code for Items API if passed as content of plugin shortcode
+
 ### Version 1.6.0 - 20th Apr 2018
-- Signature mismatch issue for lrn-items fixed
+- [BUGFIX] Signature mismatch issue for lrn-items fixed
+- [FEATURE] Support valid JSON for Reports API init options if passed as content of plugin shortcode
 
 ### Version 1.5.0 - 29th Dec 2017
 - Add support for lrnuid url parameter for lrn-assess and lrn-report

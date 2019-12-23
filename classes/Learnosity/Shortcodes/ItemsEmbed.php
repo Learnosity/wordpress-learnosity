@@ -101,7 +101,7 @@ class ItemsEmbed
             // parsing URL properly (to respect anchor if exists)
             $url_parsed = parse_url($onsubmit_redirect_url);
             // if there are parameters in query part (all coming after ? in request)
-            if (count($url_parsed['query']) > 0) {
+            if ($url_parsed['query'] != '') {
                 // adding learnosity parameter with "&" prefix
                 // using html_entity_decode as last & is converted to "&amp;"
                 if (substr(html_entity_decode($url_parsed['query']), -1) != '&') {

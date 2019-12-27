@@ -13,6 +13,10 @@
 				<th scope="row"><label for="lrn_consumer_secret">Consumer Secret (required)</label></th>
 				<td><input type="text" name="lrn_consumer_secret" id="lrn_consumer_secret" value="<?php echo get_option('lrn_consumer_secret'); ?>" class="regular-text ltr"/></td>
 			</tr>
+            <tr valign="top">
+                <th scope="row"><label for="lrn_author_api_url">Author API URL</label></th>
+                <td><input type="text" name="lrn_author_api_url" id="lrn_author_api_url" value="<?php echo get_option('lrn_author_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://authorapi-or.learnosity.com/?v1</i></p></td>
+            </tr>
 			<tr valign="top">
 				<th scope="row"><label for="lrn_items_api_url">Items API URL</label></th>
 				<td><input type="text" name="lrn_items_api_url" id="lrn_items_api_url" value="<?php echo get_option('lrn_items_api_url'); ?>" class="regular-text ltr"/><p><i>Use this to select region and version to use.  Default: https://items-va.learnosity.com/?v1</i></p></td>

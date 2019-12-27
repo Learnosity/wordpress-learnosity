@@ -256,7 +256,6 @@ class RequestHelper
     {
         switch ($service) {
             case 'assess':
-            case 'author':
             case 'questions':
                 $this->doSignRequestData = false;
                 break;

@@ -6,11 +6,13 @@ require_once 'ItemEmbed.php';
 require_once 'ItemsEmbed.php';
 require_once 'SubmitEmbed.php';
 require_once 'ReportEmbed.php';
+require_once 'AuthorEmbed.php';
 
 use Learnosity\Shortcodes\ItemEmbed as ItemEmbed;
 use Learnosity\Shortcodes\ItemsEmbed as ItemsEmbed;
 use Learnosity\Shortcodes\SubmitEmbed as SubmitEmbed;
 use Learnosity\Shortcodes\ReportEmbed as ReportEmbed;
+use Learnosity\Shortcodes\AuthorEmbed as AuthorEmbed;
 
 class Generator
 {
@@ -22,6 +24,7 @@ class Generator
         add_shortcode('lrn-submit', array(&$this, 'render_submit'));
         add_shortcode('lrn-assess', array(&$this, 'render_assess'));
         add_shortcode('lrn-report', array(&$this, 'render_report'));
+        add_shortcode('lrn-author', array(&$this, 'render_author'));
     }
 
     public function render_item($attrs)
@@ -52,5 +55,11 @@ class Generator
     {
         $report_embed = new ReportEmbed($attrs, $content);
         return $report_embed->render();
+    }
+
+    public function render_author($attrs, $content)
+    {
+        $author_embed = new AuthorEmbed($attrs, $content);
+        return $author_embed->render();
     }
 }

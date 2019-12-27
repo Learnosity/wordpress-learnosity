@@ -1,0 +1,1 @@
+<span class="learnosity-author" id="learnosity-author"></span>

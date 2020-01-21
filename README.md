@@ -182,7 +182,6 @@ Supported url parameters for WordPress page:
 http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa&lrnusid=student_123
 ```
 
-
 ### Session Detail By Item report
 
 Show a full session detail report:
@@ -204,8 +203,30 @@ Supported url parameters for WordPress page:
 http://wordpress.learnosity.com/2017/11/07/report/?lrnsid=0c2c3a66-5719-4f5f-b8c9-1492aa3c7cfa&lrnusid=student_123
 ```
 
+### Author API Usage
+Valid JSON for Author API init options could be passed as content of lrn-author shortcode. 
+
+```
+[lrn-author]
+<pre>
+{
+	"mode": "item_list",
+	"user": {
+		"id": "www-site",
+		"firstname": "WWW Firstname",
+		"lastname": "WWW Lastname",
+		"email": "www@learnosity.com"
+	}
+}
+</pre>
+[/lrn-author]
+```
 
 ## Release History
+### Version 1.8.0 - 27th Dec 2019
+- [BUGFIX] Signatures don't match error for lrn-author shortcode
+- [FEATURE] Support Author API valid JSON passed as a content in lrn-author shortcode
+
 ### Version 1.7.0 - 23rd Dec 2019
 - [FEATURE] Support readyListener JS code for Items API if passed as content of plugin shortcode
 

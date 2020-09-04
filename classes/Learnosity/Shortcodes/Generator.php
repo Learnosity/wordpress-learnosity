@@ -16,8 +16,12 @@ use Learnosity\Shortcodes\AuthorEmbed as AuthorEmbed;
 
 class Generator
 {
+    /**
+     * @var callable callback to set is_rtl in Learnosity/Plugin
+     */
+    private $set_rtl_callback;
 
-    public function __construct()
+    public function __construct(callable $set_rtl_callback)
     {
         add_shortcode('lrn-items', array(&$this, 'render_items'));
         add_shortcode('lrn-item', array(&$this, 'render_item'));
@@ -25,6 +29,7 @@ class Generator
         add_shortcode('lrn-assess', array(&$this, 'render_assess'));
         add_shortcode('lrn-report', array(&$this, 'render_report'));
         add_shortcode('lrn-author', array(&$this, 'render_author'));
+        $this->set_rtl_callback = $set_rtl_callback;
     }
 
     public function render_item($attrs)
@@ -36,6 +41,7 @@ class Generator
     public function render_items($attrs, $content)
     {
         $items_embed = new ItemsEmbed($attrs, 'inline', $content);
+        $this->set_rtl_if_required($attrs);
         return $items_embed->render();
     }
 
@@ -48,6 +54,7 @@ class Generator
     public function render_assess($attrs, $content)
     {
         $assess_embed = new ItemsEmbed($attrs, 'assess', $content);
+        $this->set_rtl_if_required($attrs);
         return $assess_embed->render();
     }
 
@@ -60,6 +67,14 @@ class Generator
     public function render_author($attrs, $content)
     {
         $author_embed = new AuthorEmbed($attrs, $content);
+        $this->set_rtl_if_required($attrs);
         return $author_embed->render();
+    }
+
+    private function set_rtl_if_required($attrs)
+    {
+        if (isset($attrs['rtl']) && $attrs['rtl'] === 'true') {
+            call_user_func($this->set_rtl_callback, true);
+        }
     }
 }

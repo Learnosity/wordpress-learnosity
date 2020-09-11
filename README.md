@@ -223,6 +223,9 @@ Valid JSON for Author API init options could be passed as content of lrn-author 
 ```
 
 ## Release History
+### Version 1.9.0 - 11th Sep 2020
+- [FEATURE] Support rtl flag (so set text direction to right to left) in lrn-items, lrn-author and lrn-assess shortcode
+
 ### Version 1.8.0 - 27th Dec 2019
 - [BUGFIX] Signatures don't match error for lrn-author shortcode
 - [FEATURE] Support Author API valid JSON passed as a content in lrn-author shortcode

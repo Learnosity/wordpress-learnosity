@@ -222,7 +222,46 @@ Valid JSON for Author API init options could be passed as content of lrn-author 
 [/lrn-author]
 ```
 
+### RTL (Right-to-Left) Mode (Arabic and Hebrew Language Support) Usage
+Provide rtl=true within associated shortcode to enable RTL.
+
+Example to enable RTL for Author API shortcode:
+```
+[lrn-author rtl=true]
+<pre>
+{
+	"mode": "item_list",
+	"config": {
+		"label_bundle": {
+			"searchStatus": "حالة",
+			"searchTags": "علامات",
+			"searchTitle": "العنوان",
+			"searchTitlePlaceholder": "البحث بالعنوان",
+			"searchTitleReferenceContent": "عنوان ‫/‬ مرحع ‫/‬ محتوي",
+			"searchTitleReferenceDescription": "عنوان / مرجع / وصف"
+		}
+	},
+	"user": {
+		"id": "www-site",
+		"firstname": "WWW Firstname",
+		"lastname": "WWW Lastname",
+		"email": "www@learnosity.com"
+	}
+}
+</pre>
+[/lrn-author]
+```
+
+RTL mode is supported for:
+- [Items API (inline, assess)](https://help.learnosity.com/hc/en-us/articles/360002588377-Configuring-Items-API-to-Initialize-in-RTL-Right-to-Left-Mode-Arabic-and-Hebrew-Language-Support-)
+- [Author API](https://help.learnosity.com/hc/en-us/articles/360000858898-Configuring-Author-API-to-Initialize-in-RTL-Right-to-Left-Mode-Arabic-and-Hebrew-Language-Support-)
+
+Please refer to the linked articles above (hyper-links) to read full instructions on RTL mode for particular API.
+
 ## Release History
+### Version 1.9.1 - 14th Sep 2020
+- [BUGFIX] Correct version on plugin settings page and documentation on how to use RTL has been added
+
 ### Version 1.9.0 - 11th Sep 2020
 - [FEATURE] Support rtl flag (so set text direction to right to left) in lrn-items, lrn-author and lrn-assess shortcode
 

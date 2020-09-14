@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Learnosity API
- * Plugin URI: https://docs.learnosity.com/developers/developerguide/integration
+ * Plugin URI: https://github.com/Learnosity/wordpress-learnosity/releases
  * Description: Simple Learnosity API integration in WordPress.
- * Version: 1.8.0
+ * Version: 1.9.1
  * Author: Learnosity
  * Author URI: http://www.learnosity.com
  * License: Copyright 2014-2020, Learnosity

@@ -45,21 +45,21 @@ class Plugin extends BasePlugin
          * in the header, they'd be loaded before the short-code scripts are encountered, thus we
          * wouldn't know whether to add the rtl flag in the src tag.
          */
-        wp_enqueue_script(
+        wp_register_script(
             'learnosity-items',
             $lrn_items_api_url,
             array(),
             null,
             true
         );
-        wp_enqueue_script(
+        wp_register_script(
             'learnosity-reports',
             $lrn_reports_api_url,
             array(),
             null,
             false
         );
-        wp_enqueue_script(
+        wp_register_script(
             'learnosity-author',
             $lrn_author_api_url,
             array(),

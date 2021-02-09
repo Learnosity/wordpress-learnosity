@@ -40,6 +40,7 @@ class Generator
 
     public function render_items($attrs, $content)
     {
+        wp_enqueue_script('learnosity-items');
         $items_embed = new ItemsEmbed($attrs, 'inline', $content);
         $this->set_rtl_if_required($attrs);
         return $items_embed->render();
@@ -53,6 +54,7 @@ class Generator
 
     public function render_assess($attrs, $content)
     {
+        wp_enqueue_script('learnosity-items');
         $assess_embed = new ItemsEmbed($attrs, 'assess', $content);
         $this->set_rtl_if_required($attrs);
         return $assess_embed->render();
@@ -60,12 +62,14 @@ class Generator
 
     public function render_report($attrs, $content)
     {
+        wp_enqueue_script('learnosity-reports');
         $report_embed = new ReportEmbed($attrs, $content);
         return $report_embed->render();
     }
 
     public function render_author($attrs, $content)
     {
+        wp_enqueue_script('learnosity-author');
         $author_embed = new AuthorEmbed($attrs, $content);
         $this->set_rtl_if_required($attrs);
         return $author_embed->render();

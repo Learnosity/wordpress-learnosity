@@ -14,6 +14,7 @@ class ReportEmbed
 
     private $config;
     private $security;
+    private $signed_requests;
 
     private $report_id;
 
@@ -25,7 +26,7 @@ class ReportEmbed
         'sessions-list',
         'session-detail-by-item');
 
-    public function __construct($options, $content)
+    public function __construct($options, $content, &$signed_requests)
     {
         $this->report_id = \UUID::generateUuid();
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
@@ -84,6 +85,8 @@ class ReportEmbed
         } else {
             $this->config = array_merge($defaults, $options);
         }
+
+        $this->signed_requests =& $signed_requests;
     }
 
     public function render()
@@ -200,11 +203,17 @@ class ReportEmbed
             ($str_val !== 'false' && intval($str_val) > 0);
     }
 
-
     private function render_init_js()
     {
-        $signed_request = $this->generate_signed_request($this->config);
-        include(__DIR__ . '/../../../templates/init-reports-js.php');
+        $this->signed_requests[] = $this->generate_signed_request($this->config);
+        wp_enqueue_script(
+            'init-reports',
+            plugin_dir_url(__FILE__) . 'js/init-reports.js',
+            array('learnosity-reports'),
+            null,
+            false
+        );
+        wp_localize_script('init-reports', 'signed_requests', $this->signed_requests);
     }
 
     private function render_report($report_id)

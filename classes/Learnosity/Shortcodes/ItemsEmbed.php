@@ -10,12 +10,13 @@ class ItemsEmbed
 {
     private $config;
     private $security;
+    private $signed_requests;
 
     private $student_prefix;
 
     private $readyListenerJSCode = "";
 
-    public function __construct($options, $mode, $content)
+    public function __construct($options, $mode, $content, &$signed_requests)
     {
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
 
@@ -51,6 +52,8 @@ class ItemsEmbed
         //Force their rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
         $this->config['renderingtype'] = $mode;
+
+        $this->signed_requests =& $signed_requests;
     }
 
     public function render()
@@ -173,8 +176,15 @@ class ItemsEmbed
 
     private function render_init_js()
     {
-        $signed_request = $this->generate_signed_request($this->config);
-        include(__DIR__ . '/../../../templates/init-items-js.php');
+        $this->signed_requests[] = $this->generate_signed_request($this->config);
+        wp_enqueue_script(
+            'init-items',
+            plugin_dir_url(__FILE__) . 'js/init-items.js',
+            array('learnosity-items'),
+            null,
+            true
+        );
+        wp_localize_script('init-items', 'signed_requests', $this->signed_requests);
     }
 
     private function render_items($references, $should_render_submit)

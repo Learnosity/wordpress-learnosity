@@ -25,6 +25,8 @@ class Generator
     private $items_signed_requests;
     private $report_signed_requests;
 
+    private $items_ready_listeners;
+
     public function __construct(callable $set_rtl_callback)
     {
         add_shortcode('lrn-items', array(&$this, 'render_items'));
@@ -37,6 +39,7 @@ class Generator
         $this->author_signed_requests = [];
         $this->items_signed_requests = [];
         $this->report_signed_requests = [];
+        $this->items_ready_listeners = [];
     }
 
     public function render_item($attrs)
@@ -48,7 +51,13 @@ class Generator
     public function render_items($attrs, $content)
     {
         wp_enqueue_script('learnosity-items');
-        $items_embed = new ItemsEmbed($attrs, 'inline', $content, $this->items_signed_requests);
+        $items_embed = new ItemsEmbed(
+            $attrs,
+            'inline',
+            $content,
+            $this->items_signed_requests,
+            $this->items_ready_listeners
+        );
         $this->set_rtl_if_required($attrs);
         return $items_embed->render();
     }
@@ -62,7 +71,13 @@ class Generator
     public function render_assess($attrs, $content)
     {
         wp_enqueue_script('learnosity-items');
-        $assess_embed = new ItemsEmbed($attrs, 'assess', $content, $this->items_signed_requests);
+        $assess_embed = new ItemsEmbed(
+            $attrs,
+            'assess',
+            $content,
+            $this->items_signed_requests,
+            $this->items_ready_listeners
+        );
         $this->set_rtl_if_required($attrs);
         return $assess_embed->render();
     }

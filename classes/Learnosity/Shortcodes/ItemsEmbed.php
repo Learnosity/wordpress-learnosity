@@ -14,9 +14,7 @@ class ItemsEmbed
 
     private $student_prefix;
 
-    private $readyListenerJSCode = "";
-
-    public function __construct($options, $mode, $content, &$signed_requests)
+    public function __construct($options, $mode, $content, &$signed_requests, &$ready_listeners)
     {
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
 
@@ -45,9 +43,9 @@ class ItemsEmbed
 
         //supporting $content to be passed inside short code
         //[lrn-assess]<pre>JavaScript code</pre>[/lrn-assess]
-        if ($content != '') {
-            $this->readyListenerJSCode = sanitize_text_field($content);
-        }
+        $this->ready_listeners =& $ready_listeners;
+        $this->ready_listeners[] = $content != '' ? sanitize_text_field($content) : '';
+
         $this->config = array_merge($defaults, $options);
         //Force their rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
@@ -185,6 +183,7 @@ class ItemsEmbed
             true
         );
         wp_localize_script('init-items', 'signed_requests', $this->signed_requests);
+        wp_localize_script('init-items', 'ready_listeners', $this->ready_listeners);
     }
 
     private function render_items($references, $should_render_submit)

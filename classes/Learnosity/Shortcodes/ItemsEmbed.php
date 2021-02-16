@@ -14,6 +14,16 @@ class ItemsEmbed
 
     private $student_prefix;
 
+    /**
+     * Initialises a new instance of the ItemsEmbed class for [lrn-items]/[lrn-assess] shortcode.
+     *
+     * @param array $options          Attributes passed to the shortcode
+     * @param string $content         Items/Assess API ready listener passed as shortcode content
+     * @param array &$signed_requests Reference to an array of signed requests to handle multiple shortcode
+     *                                instances for initialising multiple Items/Assess API instances
+     * @param array &$ready_listeners Reference to an array of ready listeners to handle multiple shortcode
+     *                                instances for initialising multiple Items/Assess API instances
+     */
     public function __construct($options, $mode, $content, &$signed_requests, &$ready_listeners)
     {
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');

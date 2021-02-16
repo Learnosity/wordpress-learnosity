@@ -26,6 +26,14 @@ class ReportEmbed
         'sessions-list',
         'session-detail-by-item');
 
+    /**
+     * Initialises a new instance of the ReportEmbed class for [lrn-report] shortcode.
+     *
+     * @param array  $options          Attributes passed to the shortcode
+     * @param string $content          Reports API init options passed as shortcode content
+     * @param array  &$signed_requests Reference to an array of signed requests to handle multiple shortcode
+     *                                 instances for initialising multiple Reports API instances
+     */
     public function __construct($options, $content, &$signed_requests)
     {
         $this->report_id = \UUID::generateUuid();

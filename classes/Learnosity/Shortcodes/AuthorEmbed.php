@@ -10,6 +10,14 @@ class AuthorEmbed
     private $security;
     private $signed_requests;
 
+    /**
+     * Initialises a new instance of the AuthorEmbed class for [lrn-author] shortcode.
+     *
+     * @param array  $options          Attributes passed to the shortcode
+     * @param string $content          Author API init options passed as shortcode content
+     * @param array  &$signed_requests Reference to an array of signed requests to handle multiple shortcode
+     *                                 instances for initialising multiple Author API instances
+     */
     public function __construct($options, $content, &$signed_requests)
     {
         $this->security = array(

@@ -8,8 +8,17 @@ class AuthorEmbed
 {
     private $config;
     private $security;
+    private $signed_requests;
 
-    public function __construct($options, $content)
+    /**
+     * Initialises a new instance of the AuthorEmbed class for [lrn-author] shortcode.
+     *
+     * @param array  $options          Attributes passed to the shortcode
+     * @param string $content          Author API init options passed as shortcode content
+     * @param array  &$signed_requests Reference to an array of signed requests to handle multiple shortcode
+     *                                 instances for initialising multiple Author API instances
+     */
+    public function __construct($options, $content, &$signed_requests)
     {
         $this->security = array(
             'consumer_key' => get_option('lrn_consumer_key'),
@@ -40,6 +49,8 @@ class AuthorEmbed
         } else {
             $this->config = array_merge($defaults, $options);
         }
+
+        $this->signed_requests =& $signed_requests;
     }
 
     public function render()
@@ -65,8 +76,15 @@ class AuthorEmbed
 
     private function render_init_js()
     {
-        $signed_request = $this->generate_signed_request($this->config);
-        include(__DIR__ . '/../../../templates/init-author-js.php');
+        $this->signed_requests[] = $this->generate_signed_request($this->config);
+        wp_enqueue_script(
+            'init-author',
+            plugin_dir_url(__FILE__) . 'js/init-author.js',
+            array('learnosity-author'),
+            null,
+            true
+        );
+        wp_localize_script('init-author', 'signed_requests', $this->signed_requests);
     }
 
     private function render_author()

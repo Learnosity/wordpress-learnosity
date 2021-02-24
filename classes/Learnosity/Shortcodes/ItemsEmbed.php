@@ -10,12 +10,21 @@ class ItemsEmbed
 {
     private $config;
     private $security;
+    private $signed_requests;
 
     private $student_prefix;
 
-    private $readyListenerJSCode = "";
-
-    public function __construct($options, $mode, $content)
+    /**
+     * Initialises a new instance of the ItemsEmbed class for [lrn-items]/[lrn-assess] shortcode.
+     *
+     * @param array $options          Attributes passed to the shortcode
+     * @param string $content         Items/Assess API ready listener passed as shortcode content
+     * @param array &$signed_requests Reference to an array of signed requests to handle multiple shortcode
+     *                                instances for initialising multiple Items/Assess API instances
+     * @param array &$ready_listeners Reference to an array of ready listeners to handle multiple shortcode
+     *                                instances for initialising multiple Items/Assess API instances
+     */
+    public function __construct($options, $mode, $content, &$signed_requests, &$ready_listeners)
     {
         $this->student_prefix = get_option('lrn_student_prefix', 'student_');
 
@@ -44,13 +53,15 @@ class ItemsEmbed
 
         //supporting $content to be passed inside short code
         //[lrn-assess]<pre>JavaScript code</pre>[/lrn-assess]
-        if ($content != '') {
-            $this->readyListenerJSCode = sanitize_text_field($content);
-        }
+        $this->ready_listeners =& $ready_listeners;
+        $this->ready_listeners[] = $content != '' ? sanitize_text_field($content) : '';
+
         $this->config = array_merge($defaults, $options);
         //Force their rendering type based based on mode called
         // lrn-items:inline or lrn-assess:assess
         $this->config['renderingtype'] = $mode;
+
+        $this->signed_requests =& $signed_requests;
     }
 
     public function render()
@@ -173,8 +184,16 @@ class ItemsEmbed
 
     private function render_init_js()
     {
-        $signed_request = $this->generate_signed_request($this->config);
-        include(__DIR__ . '/../../../templates/init-items-js.php');
+        $this->signed_requests[] = $this->generate_signed_request($this->config);
+        wp_enqueue_script(
+            'init-items',
+            plugin_dir_url(__FILE__) . 'js/init-items.js',
+            array('learnosity-items'),
+            null,
+            true
+        );
+        wp_localize_script('init-items', 'signed_requests', $this->signed_requests);
+        wp_localize_script('init-items', 'ready_listeners', $this->ready_listeners);
     }
 
     private function render_items($references, $should_render_submit)

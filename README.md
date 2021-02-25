@@ -259,6 +259,10 @@ RTL mode is supported for:
 Please refer to the linked articles above (hyper-links) to read full instructions on RTL mode for particular API.
 
 ## Release History
+### Version 1.10.0 - 25th Feb 2021
+- [BUGFIX] Fixed a bug where Learnosity API scripts not needed by shortcodes added to a WordPress page were still loaded
+- [BUGFIX] Fixed a bug where a Learnosity API was not initialised immediately after its corresponding script has been loaded
+
 ### Version 1.9.1 - 14th Sep 2020
 - [BUGFIX] Correct version on plugin settings page and documentation on how to use RTL has been added
 

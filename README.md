@@ -13,8 +13,6 @@ This Plugin is currently undergoing some rework and cleanup to update it to allo
 
 TODO:
 - [ ] Add validation check and error handling when invalid shortcodes settings - eg no items, or no activityid
-- [ ] Only load primer when there are shortcodes on the page
-- [ ] Support for session id
 - [ ] Test multiple activities on the one page
 - [ ] Are multiple submit buttons supported?
 - [ ] Support for more reporting
